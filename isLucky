@@ -1,0 +1,38 @@
+boolean isLucky(int n) {
+    // turn n into string
+    String s = Integer.toString(n); 
+    // build array for each int
+    int[] intArray = new int[s.length()]; 
+    // print s length
+    System.out.println("length: " + s.length());
+
+    // change string by each char into array
+    for(int i=0; i<s.length(); i++){
+        intArray[i] = Character.getNumericValue(s.charAt(i));
+    }
+    
+    // initialize total outside of for loop scope for later use
+    int total1 = 0;
+    // for first half of array, add each element
+    for(int j = 0; j < intArray.length/2; j++) {
+        total1 += intArray[j];
+    }
+    // check total
+    System.out.println("total1: " + total1);
+    
+    int total2 = 0;
+    // for second half of array, add each element
+    for(int k = intArray.length/2; k < intArray.length; k++) {
+        total2 += intArray[k];
+    }
+    System.out.println("total2: " + total2);
+
+    // return true or false
+    if (total1 == total2) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
