@@ -1,0 +1,73 @@
+int[] sortByHeight(int[] a) {
+    // new array to hold all values
+    int[] newArr = new int[a.length];
+    // array to hold people, positive numbers to be sorted
+    int[] sort = new int[a.length];
+    // if there is a height in the array or only -1
+    Boolean hasHeight = false;
+
+    // for each element in a: add -1 to newArr at same index, insert 0 for positive/human elements, add humans to sort array
+    for (int i = 0; i < a.length; i++) {
+        // if a person, not -1
+        if (a[i] > -1) {
+            // add person to sort array
+            sort[i] = a[i];
+            // insert 0 to placehold at newArr[i]
+            newArr[i] = 0;
+            // check for positive
+            hasHeight = true;
+        } 
+        // if -1 copy to newArr at [i]
+        else {
+            newArr[i] = -1;
+        }
+    }
+
+    // was getting array out of bounds on arrays filled with -1
+    // if all values are -1, return original
+    if (!hasHeight) {
+        return a;
+    } 
+
+    // print previous arrays for checking
+    // System.out.println("sort: " + Arrays.toString(sort));
+    // System.out.println("newArr: " + Arrays.toString(newArr));
+    // sort: [0, 150, 190, 170, 0, 0, 160, 180]
+    // newArr: [-1, 0, 0, 0, -1, -1, 0, 0]
+
+    // selection sort the sort array
+    for (int i = 0; i < sort.length -1; i++) {
+        int max = i;
+        for (int j = i +1; j < sort.length; j++) {
+            if (sort[max] < sort[j]) {
+                max = j;
+            }
+        }
+        if (max != i) {
+            int temp = sort[i];
+            sort[i] = sort[max];
+            sort[max] = temp;
+        }
+    }
+
+    // System.out.println("sorted: " + Arrays.toString(sort));
+    // sorted: [190, 180, 170, 160, 150, 0, 0, 0]
+
+    // while loop to find starting index in sort
+    int z = sort.length-1;
+    while (sort[z] == 0) {
+        z--;
+    }
+
+    // insert from sort if == 0
+    for (int i = 0; i < newArr.length; i++) {
+        if (newArr[i] == 0) {
+            newArr[i] = sort[z];
+            z--;
+        }
+        else {
+            continue;
+        }
+    }
+    return newArr;
+}
